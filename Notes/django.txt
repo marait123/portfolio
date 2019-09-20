@@ -1,0 +1,5 @@
+# the for loop in range
+
+{% for i in "x"|rjust:"100" %}
+<p> {{ i }} </p>
+{% endfor %}
