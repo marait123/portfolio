@@ -10,3 +10,9 @@ class blog(models.Model):
     pubDate = models.DateTimeField()
 
 
+    def summary(self):
+        return self.body[:100]
+
+    def __str__(self):
+        return self.title
+    

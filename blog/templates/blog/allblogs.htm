@@ -29,11 +29,27 @@
         }
       }
       
+      .postImage{
+            width:90%;
+            height: 500px;
+      }
+      .post{
+
+          width: 1200px;
+          height: auto;
+          overflow: hidden;
+          margin-bottom: 20px;
+          margin: 0 auto 20px auto;
+      }
+
+      div img{
+          display: block;
+          size:cover;
+          margin: 20px auto 20px auto;
+          border: 3px solid rgb(168, 141, 141);
+      }
     </style>
 
-    <style>
-  
-    </style>
     <!-- Custom styles for this template -->
     <link href="album.css" rel="stylesheet">
   </head>
@@ -62,20 +78,28 @@
 
   <section class="jumbotron text-center">
     <div class="container">
-      <h1 class="jumbotron-heading">Album example</h1>
+      <h1 class="jumbotron-heading">welcome to mohammed ibrahim's blog</h1>
       <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-      <p>
-        <a href="#" class="btn btn-primary my-2">Main call to action</a>
-        <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-      </p>
     </div>
   </section>
 
   <div class="album py-5 bg-light">
     <div class="container">
-      <div class="row">
+            {% for blog in blogs.all %}
+       
+        <div class="row">
 
-      </div>
+            <div class="col-lg-12 post">    
+                <h2><a href="#">{{ blog.title }}</a> <sub><small>{{ blog.pubDate }}</small></sub></h2>
+                <img width="600" height="400" class = "" src="{{ blog.image.url }}"/>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;{{ blog.summary }}...</p>
+            </div>
+    
+    
+          </div>
+          <hr/>
+
+          {% endfor %}
       </div>  
   </div>
 
