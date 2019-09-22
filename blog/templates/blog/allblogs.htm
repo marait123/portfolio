@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    {% load staticfiles %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -40,11 +41,14 @@
           overflow: hidden;
           margin-bottom: 20px;
           margin: 0 auto 20px auto;
+          
       }
 
       div img{
           display: block;
-          size:cover;
+          margin: 0 auto;
+          height: 90%;
+          width : 80%;
           margin: 20px auto 20px auto;
           border: 3px solid rgb(168, 141, 141);
       }
@@ -62,10 +66,10 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul style = "float:right" class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Twitter <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="https://www.facebook.com/watchsurveilliance/?hc_ref=ARQLRMqVJKuNIO71Puv978aVofp16_YZLR15yMeav4-FIvC6lU2NljD6-sGfgukTseY&fref=tag&__xts__[0]=68.ARBZkG_dMiVsFWjTqX-cG2KXHvgFFB-af5WrDawTZqXx3l21f4UeiEl4mIlVwAmQAWwmbTWc-Ed_waJxIV1LZ55yKK4OXU9XqDZs8zVfXyhY2q9G-eFe9Xztou4f9NBQijC-t2myiklWYrSQG11XrXM6IgQL7ZwjqNND22Q-J6_gBpTj-3fS-aHi4gVwjZE3YwLM8BezgJcla2W4L83PoMTj-GoUgAVIiyMIBR1WgmbQXejLSxi5n73CGj-agRFG0Mo6VeSw1t6o_Q79uaTheoTugyn1EwC89voMfiYGdfzhiCzFJUYGqXo-tKhnCAwXkNzz0d-HdNe9mtpVXLBVn9u2UOY-jiAaiUR0u7QJsE1Eq4PmGYrpK5otjassqQtgej9MwbivK2BcoM2qlJ_NnYglU_BBaj9a7K45ouF5Px5EKLOLshzGcZWqtga4QWAD1ej0iQdbsC7iHj3BCMtT6ypzlQ&__tn__=kC-R">Facebook <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Resume</a>
+            <a class="nav-link" href="{% static 'resume.pdf' %}">Resume</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="#">blog</a>
@@ -90,7 +94,7 @@
         <div class="row">
 
             <div class="col-lg-12 post">    
-                <h2><a href="#">{{ blog.title }}</a> <sub><small>{{ blog.pubDate }}</small></sub></h2>
+                <h2><a href="{% url 'details' blog.id %}">{{ blog.title }}</a> <sub><small>{{ blog.pubDate }}</small></sub></h2>
                 <img width="600" height="400" class = "" src="{{ blog.image.url }}"/>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;{{ blog.summary }}...</p>
             </div>
