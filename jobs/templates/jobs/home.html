@@ -37,19 +37,27 @@
         display:block;
         margin: 0 auto;
         height: 90%;
-        width : 80%;
+        width : 60%;
+        border-radius: 60%;
+        border:4px dotted rgb(255, 255, 255);
       }
       .btnEmail{
         margin:0 auto;
 
       }
+
+      .sectionHead{
+        background-color: darkolivegreen;
+        color: aliceblue;
+        text-align: center;
+        width: 100%;
+        height: 60px;
+      }
     </style>
 
-    <style>
-  
-    </style>
+
     <!-- Custom styles for this template -->
-    <link href="album.css" rel="stylesheet">
+ <link href="{% static 'album.css' %}" rel="stylesheet">
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -71,7 +79,6 @@
         </ul>
       </div>
     </nav>
-
 <main role="main">
 
   <section class="jumbotron text-center">
@@ -91,16 +98,31 @@
 
   <div class="album py-5 bg-light">
     <div class="container">
+      
+  <h1 class="sectionHead">the project i worked on</h1>
       <div class="row">
-
-{% for job in jobs.all %}
+      {% for job in jobs.all %}
         <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-    
-            <img  class="card-img-top" src="{{ job.image.url }}" />
-            
+          <div class="card mb-4 shadow-sm">    
+            <img  class="card-img-top" src="{{ job.image.url }}" />            
             <div class="card-body">
               <p class="card-text" style="height:150px; overflow:auto;">{{ job.summary }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+
+      </div>
+
+      <h1 class="sectionHead">my interests</h1>
+      <div class="row">
+      {% for interest in interests.all %}
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">    
+            <img  class="card-img-top" src="{{ interest.image.url }}" />            
+            <div class="card-body">
+              <h2 class="card-text" style="height:50px; overflow:auto;">{{ interest.title   }}</h1>
+              <p class="card-text" style="height:150px; overflow:auto;">{{ interest.summary }}</p>
             </div>
           </div>
         </div>
