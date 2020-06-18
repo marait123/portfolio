@@ -9,7 +9,7 @@
       <h2>{{ job.title }}: <sub><sub>{{job.date}}</sub></sub></h2>
       <hr/>
       
-      <p style="width: 80%; height: 80%; margin:0 auto;"> &nbsp;&nbsp;&nbsp;&nbsp; {{ job.body|urlize }}</p>
+      <p style="width: 80%; height: 80%; margin:0 auto;"> &nbsp;&nbsp;&nbsp;&nbsp; {{ job.body|urlize|linebreaks }}</p>
       <hr/>
       <img width="600" height="400" class = "" src="{{ job.image.url }}"/>
   

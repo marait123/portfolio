@@ -7,7 +7,7 @@
 </script> 
     <div class = 'body'>
       <h2>{{ blog.title }}:</h2>
-      <p style="width: 80%; height: 80%; margin:0 auto;"> &nbsp;&nbsp;&nbsp;&nbsp; {{ blog.body|urlize }}</p>
+      <p style="width: 80%; height: 80%; margin:0 auto;"> &nbsp;&nbsp;&nbsp;&nbsp; {{ blog.body|urlize|linebreaks }}</p>
       <img width="600" height="400" class = "" src="{{ blog.image.url }}"/>
   
   </div>
