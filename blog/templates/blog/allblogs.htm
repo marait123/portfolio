@@ -20,9 +20,9 @@
         <div class="row">
 
             <div class="col-lg-12 post">    
-                <h2><a href="{% url 'details' blog.id %}">{{ blog.title }}</a> <sub><small>{{ blog.pubDate }}</small></sub></h2>
+                <h2><a href="{% url 'details' blog.id %}">{{ blog.title|urlize }}</a> <sub><small>{{ blog.pubDate }}</small></sub></h2>
                 <img width="600" height="400" class = "" src="{{ blog.image.url }}"/>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;{{ blog.summary }}...</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;{{ blog.summary|urlize }}...</p>
             </div>
     
     

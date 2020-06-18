@@ -6,11 +6,24 @@
   .card-body h2{
     height: 100px;
   }
+  .img-back{
+    border: 1px solid rgba(199, 195, 195, 0.48);
+    height: 300px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    background-color: rgb(248, 249, 250);
+  }
+  .img-back img{
+    max-height: 300px;
+  }
 </style>
   <section class="jumbotron text-center">
     <div class="container">
       <h1 class="jumbotron-heading">Welcome to Mohammed Ibrahim's Main page</h1>
-      <p class="lead text-muted">hey every body this is me mohammed ibrahim gaballah a computer engineering student at the faculty of engineering in cario</p>
+      <p class="lead text-muted" >Mohammed Ibrahim is a student at the department of computer engineering at Cairo University, faculty of engineering. He has Innovative, inconventional, revolutionary, constantly-striving-to-learn personality.
+        He belives that he is destinied to do something big one day.
+      </p>
       
       <div class = "row">
       <div class='col-lg-12'>
@@ -31,10 +44,12 @@
       {% if job.job_type == "S" %}
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">    
-            <img  class="card-img-top" src="{{ job.image.url }}" />            
+            <div class = "img-back">
+              <a href = "{{ job.image.url }}"><img  class="card-img-top" src="{{ job.image.url }}" /></a>
+            </div>
             <div class="card-body">
-              <h2><a href="{% url 'job' job.id %}">{{ job.title }} {{ job.job_type }}</a> </h2>
-              <p class="card-text" style="height:150px; overflow:auto;">{{ job.summary }}</p>
+              <h2><a href="{% url 'job' job.id %}">{{ job.title }}</a> </h2>
+              <p class="card-text" style="height:150px; overflow:auto;">{{ job.summary|urlize }}...<a href="{% url 'job' job.id %}">more</a></p>
             </div>
           </div>
         </div>
@@ -49,10 +64,14 @@
       {% if job.job_type == "H" %}
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">    
-            <img  class="card-img-top" src="{{ job.image.url }}" />            
+
+            <div class = "img-back">
+              <a href = "{{ job.image.url }}"><img  class="card-img-top" src="{{ job.image.url }}" /></a>
+
+            </div>            
             <div class="card-body">
-              <h2><a href="{% url 'job' job.id %}">{{ job.title }} {{ job.job_type }}</a> </h2>
-              <p class="card-text" style="height:150px; overflow:auto;">{{ job.summary }}</p>
+              <h2><a href="{% url 'job' job.id %}">{{ job.title }}</a> </h2>
+              <p class="card-text" style="height:150px; overflow:auto;">{{ job.summary|urlize }}...<a href="{% url 'job' job.id %}">more</a></p>
             </div>
           </div>
         </div>
@@ -65,10 +84,13 @@
       {% for interest in interests.all %}
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">    
-            <img  class="card-img-top" src="{{ interest.image.url }}" />            
+            <div class = "img-back">
+              <a href = "{{ interest.image.url }}"><img  class="card-img-top" src="{{ interest.image.url }}" /></a>
+
+            </div>        
             <div class="card-body">
               <h2 class="card-text" style="overflow:auto;">{{ interest.title   }}</h1>
-              <p class="card-text" style="height:150px; overflow:auto;">{{ interest.summary }}</p>
+              <p class="card-text" style="height:150px; overflow:auto;">{{ interest.summary|urlize }}</p>
             </div>
           </div>
         </div>

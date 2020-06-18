@@ -15,7 +15,11 @@ class Job(models.Model):
         else:
             return self.body
 
+    def __str__(self):
+        return self.title
 class Interests(models.Model):
     image = models.ImageField(upload_to="images/")
     title = models.CharField(max_length=100, default= 'title default')
     summary = models.TextField(default= 'title default')
+    def __str__(self):
+        return self.title
