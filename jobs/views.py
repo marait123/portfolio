@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from datetime import date
 
 from .models import Job
@@ -10,4 +10,9 @@ def home(request):
 
     jobs = Job.objects
     interests = Interests.objects
-    return render(request,'jobs/home.html',{'year':year,'jobs':jobs, 'interests':interests})
+    return render(request,'jobs/home.html', {'year':year,'jobs':jobs, 'interests':interests})
+
+def jobs(request, job_id):
+    job = get_object_or_404(Job, pk = job_id)
+    return  render(request, 'jobs/job.html', {'job':job})
+ 
