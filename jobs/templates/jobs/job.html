@@ -2,6 +2,9 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load staticfiles %}
+<script>
+  document.title = "{{ job.title }}";
+</script>
     <div class = 'body'>
       <h2>{{ job.title }}: <sub><sub>{{job.date}}</sub></sub></h2>
       <hr/>

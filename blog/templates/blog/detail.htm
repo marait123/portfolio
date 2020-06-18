@@ -2,6 +2,9 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load staticfiles %}
+<script>
+  document.title = "{{ blog.title }}";
+</script> 
     <div class = 'body'>
       <h2>{{ blog.title }}:</h2>
       <p style="width: 80%; height: 80%; margin:0 auto;"> &nbsp;&nbsp;&nbsp;&nbsp; {{ blog.body|urlize }}</p>
