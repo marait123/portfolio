@@ -2,6 +2,138 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load staticfiles %}
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<style>
+  #respond {
+  padding: 20px;
+  margin: 0 auto;   
+  margin-top: 40px;
+  width: 50%;
+  background-color: rgb(246, 245, 245);
+}
+#comments{
+  display: block;
+  margin: 0 auto;
+  width: 80%;
+  margin-top: 20px;
+  margin-bottom: 10px; 
+}
+#comments .comment{
+  background-color: rgb(246, 245, 245);
+  margin-top: 10px;
+}
+#comments .comment h2, #comments .comment p {
+  text-align: left;
+  padding: 10px;
+  line-height: .5em; 
+}
+#respond input[type='text'],
+#respond input[type='email'], 
+#respond textarea {
+  margin-bottom: 10px;
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+
+  line-height: 1.4em;
+}
+sub{
+  font-size: .3em;
+}
+
+#respond input[type='submit']{
+margin-top: 10px;
+}
+@media only screen and (max-width: 768px) {
+  #respond{
+    width: 100%;
+  }
+}
+</style>
+<script>
+  
+function createElement(element_name, html_value){
+  var element = document.createElement(element_name);
+  element.innerHTML = html_value;
+  return element;
+}
+function postSuccess(data, textStatus, jqXHR) {
+  // add comment to UI
+  if(jqXHR.status == 200){
+    var comment = JSON.parse(data.comment)[0].fields;
+    console.log(comment);
+    comments_node = document.getElementById("comments");
+    comment_dev = document.createElement('div');
+    comment_dev.className = 'comment';
+    title_h2 = createElement('h2', comment.user_name);
+    date_sub = createElement('sub',comment.date);
+    title_h2.appendChild(date_sub);
+    body_p = createElement('p',comment.body);    
+    comment_dev.appendChild(title_h2);
+    comment_dev.appendChild(body_p);
+    comments.appendChild(comment_dev);
+    
+    // rotete the comments to add the most recent first
+    for(let i = 0; i < comments_node.children.length - 1; i++){
+      comments_node.appendChild(comments_node.children[0]);
+  }
+}
+}
+
+
+  function postError(jqXHR, textStatus, errorThrown) {
+    // display error
+    alert("error");
+  } 
+  function getCookie(name) {
+             var cookieValue = null;
+             if (document.cookie && document.cookie != '') {
+                 var cookies = document.cookie.split(';');
+                 for (var i = 0; i < cookies.length; i++) {
+                     var cookie = jQuery.trim(cookies[i]);
+                     // Does this cookie string begin with the name we want?
+                     if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                         break;
+                     }
+                 }
+             }
+             return cookieValue;
+         }
+         
+  $(function () {
+    $.ajaxSetup({
+        headers: { "X-CSRFToken": getCookie("csrftoken") }
+    });
+});
+  function send_conmment(){
+    var form_data = {
+    "comment_author": $('#comment_author').val(),
+    "email": $('#email').val(),
+    "comment": $('#comment').val()
+  };
+  console.log("form data: ")
+  console.log(form_data);
+    $.ajax({
+    type: 'POST',
+    url: "{% url 'add_job_comment' job.id %}",
+    data: form_data,
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest'
+    },
+    dataType:'json',
+    success: postSuccess,
+    error: postError
+  });
+  }
+</script> 
 <script>
   document.title = "{{ job.title }}";
 </script>
@@ -14,5 +146,34 @@
       <img width="600" height="400" class = "" src="{{ job.image.url }}"/>
   
   </div>
+
+
+  <div id="respond">
+    <h3>Leave a Comment</h3>
+      <label for="comment_author" class="required">Your name</label>
+      <input type="text" name="comment_author" id="comment_author" value="" tabindex="1" required="required">
+  
+      <label for="email" class="required">Your email</label>
+      <input type="email" name="email" id="email" value="" tabindex="2" required="required">
+
+      <label for="comment" class="required">Your message</label>
+      <textarea name="comment" id="comment" rows="10" tabindex="4"  required="required"></textarea>
+
+      <input type="hidden" name="comment_post_ID" value="1" id="comment_post_ID" />
+      <input name="submit" type="submit" value="Submit comment" onclick="send_conmment()"/>
+</div> 
+ 
+  <div id="comments">
+    {% for comment in comments.all %}
+    <div class="comment">
+      <h2>{{ comment.user_name }} <sub>{{comment.date}}</sub></h2>
+      
+      <p>
+        {{ comment.body }}
+      </p>
+    </div>
+    {% endfor %}
+  </div>
+
   {% endblock  %}
  

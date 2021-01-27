@@ -23,3 +23,17 @@ class Interests(models.Model):
     summary = models.TextField(default= 'title default')
     def __str__(self):
         return self.title
+
+
+class JobComment(models.Model):
+    job_id = models.ForeignKey(Job, on_delete=models.CASCADE)
+    body = models.TextField()
+    user_name = models.CharField(max_length=200)
+    email = models.EmailField()
+    date = models.DateTimeField(default = datetime.now)
+
+    def summary(self):
+        return self.body[:100]
+
+    def __str__(self):
+        return self.summary()
