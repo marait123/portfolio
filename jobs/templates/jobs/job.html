@@ -58,7 +58,13 @@ margin-top: 10px;
 }
 </style>
 <script>
-  
+  function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+}
 function createElement(element_name, html_value){
   var element = document.createElement(element_name);
   element.innerHTML = html_value;
@@ -92,6 +98,17 @@ function postSuccess(data, textStatus, jqXHR) {
     // display error
     alert("error");
   } 
+
+//   auth2 = gapi.auth2.getAuthInstance();
+// if (auth2.isSignedIn.get()) {
+//   var profile = auth2.currentUser.get().getBasicProfile();
+//   console.log('ID: ' + profile.getId());
+//   console.log('Full Name: ' + profile.getName());
+//   console.log('Given Name: ' + profile.getGivenName());
+//   console.log('Family Name: ' + profile.getFamilyName());
+//   console.log('Image URL: ' + profile.getImageUrl());
+//   console.log('Email: ' + profile.getEmail());
+// }
    function send_conmment(){
     var form_data = {
     "comment_author": $('#comment_author').val(),
@@ -142,6 +159,8 @@ function postSuccess(data, textStatus, jqXHR) {
 
       <input type="hidden" name="comment_post_ID" value="1" id="comment_post_ID" />
       <input name="submit" type="submit" value="Submit comment" onclick="send_conmment()"/>
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
 </div> 
  
   <div id="comments">

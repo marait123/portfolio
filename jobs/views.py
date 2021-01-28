@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
+# from django.core.mail import send_mail
 
 # Create your views here.
 def home(request):
@@ -19,7 +20,7 @@ def home(request):
 
 def jobs(request, job_id):
     job = get_object_or_404(Job, pk = job_id)
-    comments = JobComment.objects.filter(job_id = job_id)
+    comments = JobComment.objects.filter(job_id = job_id).order_by('-date')
     return  render(request, 'jobs/job.html', {'job':job, 'comments':comments})
 
 #TODO:  
@@ -27,7 +28,17 @@ def jobs(request, job_id):
 # 2. check the validity of the passed data
 # 3. check that the email exists
 def add_job_comment(request:HttpRequest, job_id):
-    try:        
+    print("email sent to , ", request.POST.get('email',None))
+
+    try:
+        print("email sent to , ", request.POST.get('email',None))
+        # send_mail(
+        #     'Subject here',
+        #     'Here is the message.',
+        #     'from@example.com',
+        #     [request.POST.get('email',None)],
+        #     fail_silently=False,
+        # )
         objComment= JobComment.objects.create(job_id = Job.objects.get(pk=job_id), user_name =request.POST.get('comment_author',None), email = request.POST.get('email',None), body = request.POST.get('comment',None))
         print(type(objComment))
         return JsonResponse({'comment': serializers.serialize('json',[objComment]) }, status=200)
